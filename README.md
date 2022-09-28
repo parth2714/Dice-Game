@@ -4,7 +4,7 @@ PvP dice game
 
 Rules:-
 
-1. goal is to reach a total of hundread points first to win.
+1. goal is to reach a total of hundred points first to win.
 
 2. you roll a dice which adds the number rolled to your current score.
 
