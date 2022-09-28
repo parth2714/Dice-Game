@@ -21,8 +21,16 @@ const inatialize = function () {
   player[0].classList.remove("player--winner");
   player[1].classList.remove("player--winner");
 };
+
 const randomNum = function () {
   return Math.trunc(Math.random() * 6) + 1;
+};
+
+const activeplayerchanger = function (activePlayer) {
+  player[activePlayer].classList.remove("player--active");
+  activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
+  player[activePlayer].classList.add("player--active");
+  return activePlayer;
 };
 
 const changediceimg = function (random) {
@@ -52,20 +60,20 @@ for (let i = 0; i < btn.length; i++)
       current = 0;
       activePlayer = 0;
     }
-    if (btn[i].classList.contains("btn--roll")) {
+
+    if (btn[i].classList.contains("btn--roll") && total < 100) {
       random = randomNum();
       diceimg.src = `${changediceimg(random)}`;
       if (random === 1) {
         current = 0;
         currentscore[activePlayer].textContent = `${current}`;
-        player[activePlayer].classList.remove("player--active");
-        activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
-        player[activePlayer].classList.add("player--active");
+        activePlayer = activeplayerchanger(activePlayer);
       } else {
         current = current + random;
         currentscore[activePlayer].textContent = `${current}`;
       }
     }
+
     if (btn[i].classList.contains("btn--hold")) {
       total = Number(totalscore[activePlayer].textContent);
       total = total + current;
@@ -73,11 +81,10 @@ for (let i = 0; i < btn.length; i++)
       currentscore[activePlayer].textContent = `${current}`;
       totalscore[activePlayer].textContent = `${total}`;
       if (total >= 100) {
-        player[activePlayer].classList.add("player--winner");
+        player[activePlayer].classList.add("player--winner", "name");
+        console.log(player[activePlayer].classList);
       } else {
-        player[activePlayer].classList.remove("player--active");
-        activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
-        player[activePlayer].classList.add("player--active");
+        activePlayer = activeplayerchanger(activePlayer);
         console.log(activePlayer);
       }
     }
